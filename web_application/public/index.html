@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certificate Checker</title>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script type="application/javascript" src="js/main.js"></script>
+</head>
+<body>
+    <h1>Certificate Trust Checker</h1>
+    <h2>Enter or upload PEM encoded certificate</h2>
+    <textarea id="textinput" rows="10" cols="50" placeholder="Enter PEM encoded certificate here"></textarea>
+    <p></p>
+    <input type="file" id="fileUploader">
+    <p></p>
+    <button id="sendBtn">Send!</button>
+    <button id="clearBtn">Clear!</button>
+    <p></p>
+    <div id="result"></div>
+</body>
+</html>
