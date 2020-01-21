@@ -37,7 +37,6 @@ $(document).ready(function() {
         } else if (textArea.val()) {
             toBeSent = textArea.val();
         }
-        console.log(toBeSent);
         if (toBeSent) {
             $.post({
                 url: '/validate',

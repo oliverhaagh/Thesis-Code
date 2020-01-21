@@ -12,7 +12,7 @@ contract EndorserRole {
     }
 
     modifier onlyEndorser() {
-        require(isEndorser(msg.sender), "Caller needs to have the proposer role!");
+        require(isEndorser(msg.sender), "Caller needs to have the endorser role!");
         _;
     }
 

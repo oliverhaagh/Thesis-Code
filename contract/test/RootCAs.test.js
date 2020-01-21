@@ -2,7 +2,7 @@ const { accounts, contract } = require('@openzeppelin/test-environment');
 const { expect } = require('chai');
 
 // Import utilities from Test Helpers
-const { BN, expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
+const { expectEvent, expectRevert } = require('@openzeppelin/test-helpers');
 
 const RootCAs = contract.fromArtifact('RootCAs');
 
@@ -75,7 +75,7 @@ describe('RootCAs', function() {
         await this.contract.endorseRootCAAddition({from: endorser1});
 
         // expect the state of the new root CA to be 0, which is Endorsed
-        expect((await this.contract.getRootCAs())[0].state).to.be.equal('0');
+        expect((await this.contract.getRootCAs())[0].state).to.be.equal('1');
 
         // make a revocation proposal and expect that the proposed state of the result is 2, which is Revoked
         let receipt = await this.contract.proposeRevocation(0, 2, {from: proposer});
@@ -106,15 +106,21 @@ describe('RootCAs', function() {
         expect((await this.contract.getRevocationProposal()).proposedState).to.be.equal('0');        
     });
 
+    it('destroy contract', async function() {
+        // destroy the contract and expect that an error is thrown when calling functions afterwards
+        await this.contract.destroy({from: owner});
+        await expectRevert(this.contract.getRootCAs(), "Returned values aren't valid, did it run Out of Gas?");
+    });
+
     it('making a proposal without proposer role.', async function() {
         // expect an error to be thrown when calling a function without the proper role
         await expectRevert(this.contract.proposeRootCAAddition("test", {from: endorser1}), "Caller needs to have the proposer role!");
     });
 
-    it('destroy contract', async function() {
-        // destroy the contract and expect that an error is thrown when calling functions afterwards
-        await this.contract.destroy({from: owner});
-        await expectRevert(this.contract.getRootCAs(), "Returned values aren't valid, did it run Out of Gas?");
+    it('endorse without endorser role.', async function() {
+        await this.contract.proposeRootCAAddition("test", {from: proposer});
+
+        await expectRevert(this.contract.endorseRootCAAddition({from: proposer}), "Caller needs to have the endorser role!");
     });
 
     it('destroy contract without owner role.', async function() {

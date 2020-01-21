@@ -1,7 +1,7 @@
 {
   "fileName": "EndorserRole.sol",
   "contractName": "EndorserRole",
-  "source": "pragma solidity >=0.5.0 <0.7.0;\r\n\r\nimport \"./Roles.sol\";\r\n\r\ncontract EndorserRole {\r\n    using Roles for Roles.Role;\r\n\r\n    Roles.Role private _endorsers;\r\n\r\n    constructor() internal {\r\n        _addEndorser(msg.sender);\r\n    }\r\n\r\n    modifier onlyEndorser() {\r\n        require(isEndorser(msg.sender), \"Caller needs to have the proposer role!\");\r\n        _;\r\n    }\r\n\r\n    function isEndorser(address account) public view returns (bool) {\r\n        return _endorsers.has(account);\r\n    }\r\n\r\n    function addEndorser(address account) public onlyEndorser {\r\n        _addEndorser(account);\r\n    }\r\n\r\n    function removeEndorser(address account) public onlyEndorser {\r\n        _endorsers.remove(account);\r\n    }\r\n\r\n    function getCurrentEndorsers() public view returns (uint, address[] memory) {\r\n        return _endorsers.getCurrentBearers();\r\n    }\r\n\r\n    function getEndorsers() public view returns (uint, address[] memory) {\r\n        return _endorsers.getBearers();\r\n    }\r\n\r\n    function _addEndorser(address account) internal {\r\n        _endorsers.add(account);\r\n    }\r\n}\r\n",
+  "source": "pragma solidity >=0.5.0 <0.7.0;\r\n\r\nimport \"./Roles.sol\";\r\n\r\ncontract EndorserRole {\r\n    using Roles for Roles.Role;\r\n\r\n    Roles.Role private _endorsers;\r\n\r\n    constructor() internal {\r\n        _addEndorser(msg.sender);\r\n    }\r\n\r\n    modifier onlyEndorser() {\r\n        require(isEndorser(msg.sender), \"Caller needs to have the endorser role!\");\r\n        _;\r\n    }\r\n\r\n    function isEndorser(address account) public view returns (bool) {\r\n        return _endorsers.has(account);\r\n    }\r\n\r\n    function addEndorser(address account) public onlyEndorser {\r\n        _addEndorser(account);\r\n    }\r\n\r\n    function removeEndorser(address account) public onlyEndorser {\r\n        _endorsers.remove(account);\r\n    }\r\n\r\n    function getCurrentEndorsers() public view returns (uint, address[] memory) {\r\n        return _endorsers.getCurrentBearers();\r\n    }\r\n\r\n    function getEndorsers() public view returns (uint, address[] memory) {\r\n        return _endorsers.getBearers();\r\n    }\r\n\r\n    function _addEndorser(address account) internal {\r\n        _endorsers.add(account);\r\n    }\r\n}\r\n",
   "sourcePath": "contracts/EndorserRole.sol",
   "sourceMap": "",
   "deployedSourceMap": "",
@@ -383,7 +383,7 @@
                       },
                       {
                         "argumentTypes": null,
-                        "hexValue": "43616c6c6572206e6565647320746f2068617665207468652070726f706f73657220726f6c6521",
+                        "hexValue": "43616c6c6572206e6565647320746f20686176652074686520656e646f7273657220726f6c6521",
                         "id": 23,
                         "isConstant": false,
                         "isLValue": false,
@@ -394,10 +394,10 @@
                         "src": "303:41:0",
                         "subdenomination": null,
                         "typeDescriptions": {
-                          "typeIdentifier": "t_stringliteral_8fe9e43d1070020985f380ce419c5be1f971725f70201d95c2be24a1773659c2",
-                          "typeString": "literal_string \"Caller needs to have the proposer role!\""
+                          "typeIdentifier": "t_stringliteral_63aea02e9427ec42159816d0201b03e6873b295df5b6f92d0f4db3401863579e",
+                          "typeString": "literal_string \"Caller needs to have the endorser role!\""
                         },
-                        "value": "Caller needs to have the proposer role!"
+                        "value": "Caller needs to have the endorser role!"
                       }
                     ],
                     "expression": {
@@ -407,8 +407,8 @@
                           "typeString": "bool"
                         },
                         {
-                          "typeIdentifier": "t_stringliteral_8fe9e43d1070020985f380ce419c5be1f971725f70201d95c2be24a1773659c2",
-                          "typeString": "literal_string \"Caller needs to have the proposer role!\""
+                          "typeIdentifier": "t_stringliteral_63aea02e9427ec42159816d0201b03e6873b295df5b6f92d0f4db3401863579e",
+                          "typeString": "literal_string \"Caller needs to have the endorser role!\""
                         }
                       ],
                       "id": 18,
